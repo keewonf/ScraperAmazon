@@ -14,6 +14,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  --blue-color: #232f3e;
+  --orange-color: #febd69;
 }
 
 * {
@@ -24,13 +26,13 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--blue-color);
   text-decoration: inherit;
 }
 
 
 a:hover {
-  color: #535bf2;
+  color: var(--blue-color);
 }
 
 h1 {
@@ -49,7 +51,7 @@ button:focus-visible {
     background-color: #ffffff;
   }
   a:hover {
-    color: #747bff;
+    color: var(--blue-color)
   }
   button {
     background-color: #f9f9f9;
@@ -66,7 +68,7 @@ button:focus-visible {
   left: 0;
   width: 100%;
   z-index: 2; /* Keep header on top of all content */
-  background-color: #232f3e;
+  background-color: var(--blue-color);
   padding: 0.9375rem 1.25rem;
   display: flex;
   flex-direction: column;
@@ -111,7 +113,7 @@ button:focus-visible {
 
 .search-input button {
   padding: 0.5rem 0.8rem;
-  background-color: #febd69;
+  background-color: var(--orange-color);
   height: 2.5rem;
   display: inline-flex;
   justify-content: center;
@@ -131,12 +133,12 @@ button:focus-visible {
 }
 
 .search-input input:focus {
-  border-color: orange;
+  border-color: var(--orange-color);
 }
 
 .search-input input:focus + button,
 .search-input button:focus {
-  border-color: orange;
+  border-color: var(--orange-color);
   border-left: none;
   margin-left: -1px;
 }
@@ -154,12 +156,21 @@ button:focus-visible {
   max-width: 75rem;
   margin: 0 auto;
   padding: 1.25rem;
-  margin-top: 9.375rem;
+  margin-top: 5rem;
   padding-top: 7.5rem;
 }
 
 .results {
   width: 100%;
+}
+
+.results-header {
+  font-size: 1.12rem;
+  margin-bottom: 1.25rem;
+  color: #333;
+  padding-left: 0.625rem;
+  border-bottom: 1px solid #e7e7e7;
+  padding-bottom: 0.625rem;
 }
 
 .results-header-container {
@@ -172,7 +183,6 @@ button:focus-visible {
   gap: 1.25rem;
   width: 100%;
 }
-
 
 .result-card {
   width: 100%;
@@ -205,6 +215,8 @@ button:focus-visible {
   width: 100%;
   height: 12.5rem;
   object-fit: contain;
+  max-height: 100%;
+  max-width: 100%;
 }
 
 .result-details {
@@ -217,7 +229,7 @@ button:focus-visible {
 }
 
 .result-name {
-  font-size: 1.3rem;
+  font-size: 1rem;
   margin: 0 0 10px 0;
   line-height: 1.4;
   display: -webkit-box;
@@ -228,13 +240,6 @@ button:focus-visible {
   text-align: center;
 }
 
-.platform {
-  font-size: 14px;
-  color: #565959;
-  margin: 5px 0;
-  text-align: center;
-}
-
 .result-price {
   font-size: 1.1rem;
   font-weight: bold;
@@ -242,6 +247,21 @@ button:focus-visible {
   margin-top: auto;
   text-align: center;
 }
+
+/* Product Card */
+.result-card-link {
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+}
+
+.platform {
+  font-size: 14px;
+  color: #565959;
+  margin: 5px 0;
+  text-align: center;
+}
+
 
 /* Loading and Error */
 
@@ -254,6 +274,18 @@ button:focus-visible {
 .loading::after {
   content: "...";
   animation: dot-blink 1s infinite step-start;
+}
+
+.error-message {
+  text-align: center;
+  font-size: 1.2rem;
+  color: red;
+  background-color: var(--blue-color);
+  border: 1px solid red;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 2rem auto;
+  max-width: 600px;
 }
 
 /* welcome message */
@@ -301,7 +333,7 @@ button:focus-visible {
 
 .welcome-message a {
   font-size: 1.2rem;
-  color: #febd69;
+  color: var(--orange-color);
   font-weight: 700;
   text-decoration: none;
 }
@@ -323,61 +355,6 @@ button:focus-visible {
   }
 }
 
-/* Rating and Reviews Styling */
-.rating-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 8px 0;
-  flex-wrap: wrap;
-}
-
-.rating-value {
-  font-weight: bold;
-  margin-right: 5px;
-  color: #0F1111;
-}
-
-.stars-container {
-  display: flex;
-  align-items: center;
-}
-
-.star-filled {
-  color: #FF9900; /* Amazon's orange color for stars */
-  font-size: 1rem;
-  margin-right: 1px;
-}
-
-.star-empty {
-  color: #E0E0E0;
-  font-size: 1rem;
-  margin-right: 1px;
-}
-
-.review-count {
-  margin-left: 5px;
-  color: #007185; /* Amazon's blue color for links */
-  font-size: 14px;
-}
-
-/* Results Header */
-.results-header {
-  font-size: 1.12rem;
-  margin-bottom: 1.25rem;
-  color: #333;
-  padding-left: 0.625rem;
-  border-bottom: 1px solid #e7e7e7;
-  padding-bottom: 0.625rem;
-}
-
-/* Product Card */
-.result-card-link {
-  text-decoration: none;
-  color: inherit;
-  height: 100%;
-}
-
 /* Image Container */
 .image-container {
   height: 12.5rem;
@@ -388,46 +365,6 @@ button:focus-visible {
   background-color: #f8f8f8;
 }
 
-.result-image {
-  max-height: 100%;
-  max-width: 100%;
-  object-fit: contain;
-}
-
-/* Product Details */
-.result-details {
-  padding: 15px;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.result-name {
-  font-size: 1rem;
-  margin: 0 0 10px 0;
-  line-height: 1.4;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  color: #0F1111;
-}
-
-.platform {
-  font-size: 14px;
-  color: #565959;
-  margin: 5px 0;
-}
-
-.result-price {
-  font-size: 18px;
-  font-weight: bold;
-  color: #B12704;
-  margin-top: auto;
-}
-
 /* Rating and Reviews Styling */
 .rating-container {
   display: flex;
@@ -449,7 +386,7 @@ button:focus-visible {
 }
 
 .star-filled {
-  color: #FF9900; /* Amazon's orange color for stars */
+  color: var(--orange-color);
   font-size: 1rem;
   margin-right: 1px;
 }

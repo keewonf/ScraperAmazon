@@ -12,32 +12,33 @@ function SearchPage() {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [firstPage, setFirstPage] = useState(true);
-  const [apiError, setApiError] = useState(false);
+  const [apiErrorConnect, setApiErrorConnect] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   /**
    * Handles the search functionality
    */
   const handleSearch = async () => {
     setLoading(true);
-    setApiError(false);
+    setApiErrorConnect(false);
+    setErrorMessage("");
     
     try {
       const response = await api.get(`/api/scrape?keyword=${searchItem}`);
       setResults(response.data);
       setFirstPage(false);
     } catch(error) {
-      // Tratamento simples com apenas dois casos
+      console.error("error:", error);
+      
       if (error.code === "ERR_NETWORK") {
-        // Erro específico de conexão com a API
-        setApiError(true);
-        console.error("Connection error:", error);
+        // Connection error with the API server
+        setApiErrorConnect(true);
       } else if (error.response) {
-        // Error message from the API (como você já tinha)
-        alert(error.response.data.message);
-        console.log(error.response.data.message);
+        // Error from the API with response
+        setErrorMessage(error.response.data.message || "An error occurred.");
       } else {
-        // Erro genérico (como você já tinha)
-        alert("An error occurred!");
+        // Generic error
+        setErrorMessage("An error occurred.");
       }
     } finally {
       setLoading(false);
@@ -125,8 +126,10 @@ function SearchPage() {
         <div className="results">
           {loading ? (
             <p>Loading...</p>
-          ) : apiError ? (
-              <p>Cant connect to the API.</p>
+          ) : apiErrorConnect ? (
+              <p className="error-message">Cannot connect to the API server.</p>
+          ) : errorMessage ? (
+              <p className="error-message">{errorMessage}</p>
           ) : firstPage ? (
             // Welcome message for first-time visitors
             <div className="welcome-message welcome-message-enter">
